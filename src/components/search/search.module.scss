@@ -1,0 +1,15 @@
+.search {
+  &__input {
+    background-color: #d7ccc8 !important;
+    margin: 0 !important;
+    width: 90% !important;
+    padding-left: 40px !important;
+    & + label i {
+      transform: translateY(12px);
+      padding-left: 5px;
+    }
+    & ~ i {
+      top: 8px !important;
+    }
+  }
+}
