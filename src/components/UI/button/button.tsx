@@ -1,8 +1,8 @@
-interface Color {
+interface Props {
   color: string;
 }
 
-export const Button = ({ color }: Color) => {
+export const Button = ({ color }: Props) => {
   return (
     <button
       className={`btn waves-effect waves-light ${color}`}

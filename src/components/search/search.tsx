@@ -1,15 +1,15 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../UI/button/button";
 
-import styles from "./search.module.scss";
+import s from "./search.module.scss";
 
-export const Search: FC = () => {
+export const Search = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const searchInput = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
 
-  function handleSubmit(e: { preventDefault: () => void }) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     navigate("/searchResult");
   }
@@ -32,7 +32,7 @@ export const Search: FC = () => {
           <input
             id="search"
             type="search"
-            className={styles.search__input}
+            className={s.search__input}
             ref={searchInput}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

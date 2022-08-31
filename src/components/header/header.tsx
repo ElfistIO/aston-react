@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { FC } from "react";
 
-export const Header: FC = () => {
+export const Header = () => {
   return (
     <nav className="brown darken-3">
       <div className="nav-wrapper container">
