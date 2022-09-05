@@ -1,0 +1,22 @@
+.filter {
+  &__wrapper {
+    padding: 5px 0;
+    border-bottom: 1px solid rgb(175, 175, 175);
+    & div {
+      display: flex;
+      align-items: center;
+    }
+    & span {
+      margin: 0 10px;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    & button {
+      display: flex;
+    }
+  }
+}

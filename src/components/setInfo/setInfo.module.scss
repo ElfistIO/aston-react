@@ -1,0 +1,32 @@
+@import './../../helpers/constants.scss';
+
+.set {
+  &__wrapper {
+    display: flex;
+    padding: 5px 10px;
+    background-color: $color_dark;
+    width: 100%;
+    height: 60px;
+    color: white;
+  }
+  &__icon {
+    width: 30px;
+    height: 30px;
+    align-self: center;
+    margin-right: 10px;
+    filter: invert(100%);
+  }
+  &__info {
+    &_wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    }
+    &_name {
+      font-weight: 600;
+    }
+    &_card {
+      font-size: 12px;
+    }
+  }
+}

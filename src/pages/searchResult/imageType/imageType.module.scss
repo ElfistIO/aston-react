@@ -1,0 +1,26 @@
+.main {
+  &__cards {
+    width: 100%;
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+    
+    @media (max-width: 1280px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 475px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  &__empty {
+    display: flex;
+    font-size: 20px;
+    height: calc(100vh - 141px);
+    align-items: center;
+    justify-content: center;
+  }
+}

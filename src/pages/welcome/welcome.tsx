@@ -8,10 +8,10 @@ export const Welcome = () => {
       <div className="container">
         <div className="row">
           <h4 className="col s10 offset-s1 center-align flow-text">
-            <span className={s.main__header_bold}>MTG Collection</span> is a
+            <span className={s.main__header_bold}>HibernatioN</span> is a
             powerful{" "}
             <span className={s.main__header_bold}>Magic the Gathering</span>{" "}
-            card search <br /> and digital collection of your real cards
+            card search <br /> and network community of Magic players
           </h4>
         </div>
         <Search />

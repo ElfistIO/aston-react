@@ -1,0 +1,36 @@
+.main {
+  &__cards {
+    width: 100%;
+    display: grid; 
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+  }
+  &__empty {
+    display: flex;
+    font-size: 20px;
+    height: calc(100vh - 141px);
+    align-items: center;
+    justify-content: center;
+  }
+  &__card_wrapper {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(175, 175, 175);
+    padding: 15px 0px 40px 0px;
+    & a {
+      width: 30%;
+    }
+    & > a > img:hover {
+      transform: none;
+    }
+  }
+  &__card_set {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    & a {
+      width: 100%;
+    }
+  }
+}
