@@ -1,24 +1,17 @@
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { Filter } from "../../components/filter/filter";
-import { useState } from "react";
 import { ImageType } from "./imageType/imageType";
 import { ChecklistType } from "./checklistType/checklistType";
 import { FullType } from "./FullType/FullType";
 
-import * as Scry from "scryfall-sdk";
 import s from "./searchResult.module.scss";
-import M from "materialize-css";
 
-export const SearchResult = (): JSX.Element => {
-  M.AutoInit();
+export const SearchResult = () => {
   const [showType, setShowType] = useState<string>("images");
-  const [sortListBy, setSortListBy] = useState<string>("");
-  const cards: Array<Scry.Card> = useAppSelector(
-    (state) => state.searchResult.searchResult
-  );
-  const searchInput: string = useAppSelector(
-    (state) => state.searchResult.searchInput
-  );
+  const [sortListBy, setSortListBy] = useState<string>("name");
+  const cards = useAppSelector((state) => state.searchResult.searchState);
+  const searchInput = useAppSelector((state) => state.searchResult.searchInput);
 
   function renderShowType(showType: string) {
     switch (showType) {
@@ -33,9 +26,29 @@ export const SearchResult = (): JSX.Element => {
     }
   }
 
-  function sortList() {
-    cards.sort((a, b) => (a.name > b.name ? 0 : -1));
-  }
+  // function sortList(sortListBy: string) {
+  //   switch (sortListBy) {
+  //     case "name":
+  //       cards.slice().sort((a, b) => (a.name > b.name ? 0 : -1));
+  //       break;
+  //     case "set":
+  //       cards.slice().sort((a, b) => (a.set_name > b.set_name ? 0 : -1));
+  //       break;
+  //     case "rarity":
+  //       cards.slice().sort((a, b) => (a.rarity > b.rarity ? 0 : -1));
+  //       break;
+  // case "color":
+  //   cards.slice().sort((a, b) => (a.colors > b.colors ? 0 : -1));
+  //   break;
+  //     default:
+  //       cards.slice().sort((a, b) => (a.name > b.name ? 0 : -1));
+  //       break;
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   sortList(sortListBy);
+  // }, [sortListBy]);
 
   return (
     <main className={s.main__result}>

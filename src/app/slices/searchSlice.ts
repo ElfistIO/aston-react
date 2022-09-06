@@ -2,29 +2,29 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { Card } from "scryfall-sdk";
 
-interface searchState {
-  searchResult: Array<Card>;
+interface SearchState {
+  searchState: Array<Card>;
   searchInput: string;
 }
 
-const initialState: searchState = {
-  searchResult: [],
+const initialState: SearchState = {
+  searchState: [],
   searchInput: "",
 };
 
 export const searchSlice = createSlice({
-  name: "searchResult",
+  name: "searchState",
   initialState,
   reducers: {
-    searchReducer: (state, action: PayloadAction<Array<Card>>) => {
-      state.searchResult = action.payload;
+    setSearchState: (state, action: PayloadAction<Array<Card>>) => {
+      state.searchState = action.payload;
     },
-    searchInputReducer: (state, action: PayloadAction<string>) => {
+    setSearchInputState: (state, action: PayloadAction<string>) => {
       state.searchInput = action.payload;
     },
   },
 });
 
-export const { searchReducer, searchInputReducer } = searchSlice.actions;
+export const { setSearchState, setSearchInputState } = searchSlice.actions;
 
 export default searchSlice.reducer;

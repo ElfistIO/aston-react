@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "scryfall-sdk";
 import { Link } from "react-router-dom";
 
@@ -6,19 +6,21 @@ import * as Scry from "scryfall-sdk";
 import s from "./printInfo.module.scss";
 
 interface Props {
-  card: Scry.Card;
+  card: Scry.Card | undefined;
 }
 
 export const PrintInfo = (props: Props) => {
   const [prints, setPrints] = useState<Card[]>();
 
-  const getPrints = useCallback(async (): Promise<void> => {
-    await props.card.getPrints().then((prints) => setPrints(prints));
-  }, [props.card]);
-
   useEffect(() => {
-    getPrints().catch(console.error);
-  }, [getPrints]);
+    async function getPrints() {
+      await props
+        .card!.getPrints()
+        .then((prints) => setPrints(prints))
+        .catch(console.error);
+    }
+    getPrints();
+  }, [props.card]);
 
   return (
     <>
@@ -28,18 +30,21 @@ export const PrintInfo = (props: Props) => {
       </div>
       <div className={s.printInfo__wrapper}>
         {prints?.map((print) => (
-          <Link to="/card" state={print} key={print.id}>
+          <Link
+            to={{ pathname: "/card", search: `id=${print?.id}` }}
+            key={print.id}
+          >
             <div className={s.printInfo__print}>
               <span>{print.set_name}</span>
-              <span>{props.card.prices.usd}</span>
+              <span>{print.prices.usd}</span>
               <div className={s.printInfo__img_box}>
                 <img
                   src={
-                    props.card.layout === "transform"
-                      ? props.card.card_faces[0].image_uris?.png
-                      : props.card.image_uris?.png
+                    props.card?.layout === "transform"
+                      ? print.card_faces[0].image_uris?.png
+                      : print.image_uris?.png
                   }
-                  alt={`${props.card.name}`}
+                  alt={`${props.card?.name}`}
                   className={s.printInfo__img}
                 />
               </div>

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import M from "materialize-css";
 
@@ -17,28 +17,23 @@ export const Dropdown = (props: Props) => {
     props.action(listItem);
   }
 
-  useEffect((): void => setDropText(dropText), [dropText]);
-
   return (
     <>
       <button
-        className={`dropdown-trigger btn-small ${
-          props.color ? props.color : "transparent"
-        }`}
-        data-target="dropList"
+        className={`dropdown-trigger btn-small ${props.color || "transparent"}`}
+        data-target={`dropList${props.list[0]}`}
       >
         {dropText} <i className="material-icons">unfold_more</i>
       </button>
-      <ul id="dropList" className="dropdown-content">
+      <ul id={`dropList${props.list[0]}`} className="dropdown-content">
         {props.list.map((listItem, index) => (
           <li key={index}>
-            <a
-              href="#!"
+            <button
               className={"blue-grey lighten-4"}
               onClick={() => toggleDropdown(listItem)}
             >
               {listItem}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

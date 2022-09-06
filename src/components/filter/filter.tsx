@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { Dropdown } from "../UI/dropdown/dropdown";
 
-import s from "./filter.module.scss";
 import M from "materialize-css";
+import s from "./filter.module.scss";
 
 interface Props {
   setShowType: Dispatch<SetStateAction<string>>;

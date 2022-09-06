@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import s from "./setInfo.module.scss";
 import * as Scry from "scryfall-sdk";
 
-export const SetInfo = (props: { card: Scry.Card }) => {
-  const card: Scry.Card = props.card;
+interface Props {
+  card: Scry.Card | undefined;
+}
+
+export const SetInfo = (props: Props) => {
+  const card = props.card;
   const [set, setSet] = useState<Scry.Set>();
 
   const getSet = useCallback(async (): Promise<void> => {
-    await Scry.Sets.byName(card.set_name).then((set) => setSet(set));
+    await Scry.Sets.byName(card!.set_name).then((set) => setSet(set));
   }, [card]);
 
   useEffect(() => {
@@ -17,7 +21,7 @@ export const SetInfo = (props: { card: Scry.Card }) => {
   }, [getSet]);
 
   return (
-    <Link to="/set">
+    <Link to={{ pathname: "/set", search: `id=${set?.id}` }}>
       <div className={s.set__wrapper}>
         <img src={set?.icon_svg_uri} alt="set_icon" className={s.set__icon} />
         <div className={s.set__info_wrapper}>
@@ -25,8 +29,8 @@ export const SetInfo = (props: { card: Scry.Card }) => {
             {set?.name} {`(${set?.code.toUpperCase()})`}
           </div>
           <div className={s.set__info_card}>
-            #{card.collector_number} {`\u2022`} {card.rarity} {`\u2022`}{" "}
-            {card.lang.toUpperCase()}
+            #{card?.collector_number} {`\u2022`} {card?.rarity} {`\u2022`}{" "}
+            {card?.lang.toUpperCase()}
           </div>
         </div>
       </div>

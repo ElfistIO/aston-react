@@ -8,11 +8,14 @@ interface Props {
 }
 
 export const CardCheckList = (props: Props) => {
-  const card: Scry.Card = props.card;
-  const img_uri: string | undefined = props.card.image_uris?.png;
+  const { card } = props;
+  const img_uri =
+    card.layout === "transform"
+      ? card.card_faces[0].image_uris?.png
+      : card.image_uris?.png;
 
   return (
-    <Link to="/card" state={card}>
+    <Link to={{ pathname: "/card", search: `id=${card?.id}` }}>
       <div className={s.card__wrapper}>
         <div title={card.set_name}>{card.set.toUpperCase()}</div>
         <div className={s.card__collector_number}>{card.collector_number}</div>

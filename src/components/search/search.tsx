@@ -1,35 +1,45 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  URLSearchParamsInit,
+  useNavigate,
+} from "react-router-dom";
 import { Button } from "../UI/button/button";
 import { useAppDispatch } from "../../app/hooks";
 import {
-  searchInputReducer,
-  searchReducer,
+  setSearchInputState,
+  setSearchState,
 } from "../../app/slices/searchSlice";
 import { MagicArray } from "scryfall-sdk/out/util/MagicEmitter";
 
 import * as Scry from "scryfall-sdk";
 import s from "./search.module.scss";
 
+export const useNavigateSearch = () => {
+  const navigate = useNavigate();
+  return (pathname: string, params: URLSearchParamsInit | undefined) =>
+    navigate({ pathname, search: `?${createSearchParams(params)}` });
+};
+
 export const Search = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const searchInput = useRef<HTMLInputElement | null>(null);
-  const navigate = useNavigate();
+  const navigate = useNavigateSearch();
   const dispatch = useAppDispatch();
 
   async function fetchSearch(search: string) {
     const result: MagicArray<Scry.Card, never> = await Scry.Cards.search(
       `name:${search}`
     ).waitForAll();
-    dispatch(searchInputReducer(inputValue));
-    dispatch(searchReducer(result));
+    dispatch(setSearchInputState(inputValue));
+    dispatch(setSearchState(result));
   }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     if (inputValue === "") return;
     fetchSearch(inputValue);
-    navigate("/searchResult");
+    navigate("/searchResult", { search: inputValue });
   }
 
   function handleClearInput(): void {

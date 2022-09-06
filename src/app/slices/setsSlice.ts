@@ -7,19 +7,19 @@ interface setsState {
 }
 
 const initialState: setsState = {
-  sets: [] as Scry.Set[],
+  sets: [],
 };
 
 export const setsSlice = createSlice({
   name: "sets",
   initialState,
   reducers: {
-    setsReducer: (state, action: PayloadAction<Scry.Set[]>) => {
+    setSets: (state, action: PayloadAction<Scry.Set[]>) => {
       state.sets = action.payload;
     },
   },
 });
 
-export const { setsReducer } = setsSlice.actions;
+export const { setSets } = setsSlice.actions;
 
 export default setsSlice.reducer;

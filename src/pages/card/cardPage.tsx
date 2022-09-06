@@ -1,15 +1,26 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Card } from "../../components/card/card";
 import { CardInfo } from "../../components/cardInfo/cardinfo";
-import { useLocation } from "react-router-dom";
+import { PrintInfo } from "../../components/printInfo/printInfo";
 import { SetInfo } from "../../components/setInfo/setInfo";
 
 import * as Scry from "scryfall-sdk";
 import s from "./cardPage.module.scss";
-import { PrintInfo } from "../../components/printInfo/printInfo";
 
 export const CardPage = () => {
-  const location = useLocation();
-  const card: Scry.Card = location.state as Scry.Card;
+  const [card, setCard] = useState<Scry.Card>();
+  const [searchParams] = useSearchParams();
+  const cardId = searchParams.get("id");
+
+  useEffect(() => {
+    async function getCard() {
+      await Scry.Cards.byId(cardId!)
+        .then((card) => setCard(card))
+        .catch(console.error);
+    }
+    getCard();
+  }, [cardId]);
 
   return (
     <div className={s.main__wrapper}>
