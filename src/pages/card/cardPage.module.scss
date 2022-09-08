@@ -1,0 +1,32 @@
+.main {
+  &__wrapper {
+    height: calc(100vh - 79px)
+  }
+  &__cards {
+    width: 100%;
+    display: grid; 
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px;
+    margin: 15px 0;
+    border-bottom: 1px solid rgb(175, 175, 175);
+  }
+  &__card_wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0px 40px 0px;
+    & a {
+      width: 30%;
+    }
+    & > a > img:hover {
+      transform: none;
+    }
+  }
+  &__card_set {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    & a {
+      width: 100%;
+    }
+  }
+}

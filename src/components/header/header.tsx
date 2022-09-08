@@ -5,7 +5,7 @@ export const Header = () => {
     <nav className="brown darken-3">
       <div className="nav-wrapper container">
         <Link to="/" className="brand-logo">
-          MtG Collection
+          HibernatioN
         </Link>
         <ul id="nav-mobile" className="right">
           <li>

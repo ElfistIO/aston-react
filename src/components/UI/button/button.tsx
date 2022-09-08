@@ -1,15 +1,16 @@
 interface Props {
   color: string;
+  text: string;
 }
 
-export const Button = ({ color }: Props) => {
+export const Button = (props: Props) => {
   return (
     <button
-      className={`btn waves-effect waves-light ${color}`}
+      className={`btn waves-effect waves-light ${props.color}`}
       type="submit"
       name="action"
     >
-      Search
+      {props.text}
     </button>
   );
 };

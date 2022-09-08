@@ -1,0 +1,42 @@
+@import './../../helpers/constants.scss';
+
+.card{
+  &__wrapper{
+    display: grid;
+    grid-template-columns: 42px 42px minmax(120px, 1fr) minmax(60px, 1fr) 1fr 100px 1fr 65px;
+    justify-content: space-between;
+    padding: 5px 0;
+    color: black;
+    border-bottom: 1px solid rgb(175, 175, 175);
+    &:hover {
+      background-color: $color_light_blue;
+      & ~ div{
+        display: block;
+      }
+    }
+    & * {
+      margin: 0 5px;
+    }
+  }
+  &__collector_number{
+    text-align: right;
+  }
+  &__rarity{
+    text-transform: capitalize;
+  }
+  &__prices_usd{
+    color: $color_dark_blue;
+    font-weight: 600;
+    text-align: right;
+  }
+  &__img_box{
+    display: none;
+    position: relative;
+  }
+  &__img{
+    width: 250px;
+    position: absolute;
+    display: block;
+    left: 27%;
+  }
+}

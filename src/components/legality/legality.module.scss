@@ -1,0 +1,40 @@
+.legality {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-size: 10px;
+    gap: 5px;
+  }
+  &__format {
+    &_wrapper{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(50%, 1fr));
+    }
+    &_legality {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      border-radius: 3px;
+      text-align: center;
+    }
+    &_name {
+      font-size: 12px;
+      margin-left: 7px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.legal {
+  background-color: #75986E;
+}
+.restricted {
+  background-color: rgba(36,103,130,0.58);
+}
+.banned {
+  background-color: rgba(167,31,42,0.58);
+}
+.not_legal {
+  background-color: #AEAEAE;
+}
