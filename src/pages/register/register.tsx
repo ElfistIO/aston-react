@@ -1,42 +1,38 @@
 import React, { useState } from "react";
 import { useNavigateSearch } from "../../app/hooks";
-
-import s from "./login.module.scss";
 import { UserAuth } from "../../services/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/UI/button/button";
 
-export const Login = () => {
+import s from "./register.module.scss";
+
+export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [catchError, setError] = useState<boolean>();
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const [catchError, setError] = useState<boolean | string>();
   const navigate = useNavigateSearch();
-  const { signIn } = UserAuth();
+  const { createUser } = UserAuth();
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setError(false);
     try {
-      await signIn(email, password).then((userCredential) => {
+      await createUser(email, password).then((userCredential) => {
         const user = userCredential.user;
         navigate("/account", { id: user.uid });
       });
     } catch (error) {
-      setError(true);
-      const errorMessage = (error as Error).message;
-      setErrorMessage(errorMessage);
-      console.error(errorMessage);
+      setError((error as Error).message);
     }
   };
 
   return (
-    <div className={s.login__wrapper}>
+    <div className={s.register__wrapper}>
       <div className="container">
-        <div className={s.login__form}>
+        <div className={s.register__form}>
           <div className="row">
             <h6 className="center-align col s4 offset-s4">
-              Enter your email address to sign in to HibernatioN
+              Sign up for a free account
             </h6>
             <form className="col s12" onSubmit={handleSubmit}>
               <div className="input-field col s4 offset-s4">
@@ -47,9 +43,7 @@ export const Login = () => {
                   required
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <label className={s.login__form_label} htmlFor="email">
-                  E-mail
-                </label>
+                <label htmlFor="email">E-mail</label>
               </div>
               <div className="input-field col s4 offset-s4">
                 <input
@@ -60,16 +54,16 @@ export const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <label htmlFor="password">Password</label>
-                {catchError && (
-                  <div style={{ color: "red" }}>{errorMessage}</div>
+                {catchError === true && (
+                  <div style={{ color: "red" }}>Wrong email or password</div>
                 )}
               </div>
 
               <div className="col s4 offset-s4 center-align mt-15">
                 <p className="">
-                  Don't have an account yet?{" "}
-                  <Link to="/register" className="center-align">
-                    Sign up for free.
+                  Already have an account?{" "}
+                  <Link to="/login" className="center-align">
+                    Sign in.
                   </Link>
                 </p>
                 <Button color={"brown darken-3"} text={"Submit"} />

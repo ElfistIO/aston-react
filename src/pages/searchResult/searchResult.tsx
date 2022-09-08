@@ -1,17 +1,39 @@
-import { useEffect, useState } from "react";
-import { useAppSelector } from "../../app/hooks";
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Filter } from "../../components/filter/filter";
 import { ImageType } from "./imageType/imageType";
 import { ChecklistType } from "./checklistType/checklistType";
 import { FullType } from "./FullType/FullType";
 
+import * as Scry from "scryfall-sdk";
 import s from "./searchResult.module.scss";
+import { MagicArray } from "scryfall-sdk/out/util/MagicEmitter";
+import {
+  setSearchInputState,
+  setSearchState,
+} from "../../app/slices/searchSlice";
+import { useSearchParams } from "react-router-dom";
 
 export const SearchResult = () => {
   const [showType, setShowType] = useState<string>("images");
+  // сортировка пока не реализована. заготовка
   const [sortListBy, setSortListBy] = useState<string>("name");
+  const [searchParams] = useSearchParams();
+  const searchValue = searchParams.get("search");
+  const dispatch = useAppDispatch();
   const cards = useAppSelector((state) => state.searchResult.searchState);
   const searchInput = useAppSelector((state) => state.searchResult.searchInput);
+
+  if (cards.length === 0) {
+    async function fetchSearch(search: string) {
+      const result: MagicArray<Scry.Card, never> = await Scry.Cards.search(
+        `name:${search}`
+      ).waitForAll();
+      dispatch(setSearchInputState(searchValue!));
+      dispatch(setSearchState(result));
+    }
+    fetchSearch(searchValue!);
+  }
 
   function renderShowType(showType: string) {
     switch (showType) {
@@ -25,30 +47,6 @@ export const SearchResult = () => {
         return <ImageType cards={cards} />;
     }
   }
-
-  // function sortList(sortListBy: string) {
-  //   switch (sortListBy) {
-  //     case "name":
-  //       cards.slice().sort((a, b) => (a.name > b.name ? 0 : -1));
-  //       break;
-  //     case "set":
-  //       cards.slice().sort((a, b) => (a.set_name > b.set_name ? 0 : -1));
-  //       break;
-  //     case "rarity":
-  //       cards.slice().sort((a, b) => (a.rarity > b.rarity ? 0 : -1));
-  //       break;
-  // case "color":
-  //   cards.slice().sort((a, b) => (a.colors > b.colors ? 0 : -1));
-  //   break;
-  //     default:
-  //       cards.slice().sort((a, b) => (a.name > b.name ? 0 : -1));
-  //       break;
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   sortList(sortListBy);
-  // }, [sortListBy]);
 
   return (
     <main className={s.main__result}>

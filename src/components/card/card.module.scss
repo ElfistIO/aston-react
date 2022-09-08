@@ -44,7 +44,30 @@
       transform: rotateY(180deg);
     }
   }
-
+  &__wish button {
+    position: absolute;
+    color:crimson;
+    width: 40px;
+    height: 40px;
+    opacity: 0.60;
+    background: white;
+    border-radius: 100%;
+    border: 2px solid #343242;
+    display: block;
+    height: 44px;
+    width: 44px;
+    padding: 7px;
+    cursor: pointer;
+    top: 40%;
+    left: 86%;
+    &:hover {
+      opacity: 1;
+    }
+    &:last-child {
+      top: 26%;
+      color: black;
+    }
+  }
 }
 .flip__card {
   transform: rotateY(180deg);

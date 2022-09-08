@@ -1,0 +1,41 @@
+@import './../../helpers/constants.scss';
+
+.setHeader {
+  &__wrapper{
+  background-color: $color_medium;
+  display: flex;
+  }
+  &__info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color_medium;
+    padding: 8px 0;
+    color: white;
+    &_name {
+      font-weight: 600;
+    }
+    &_card {
+      font-size: 12px;
+    }
+    &_block {
+      font-size: 12px;
+    }
+    &_box {
+      display: flex;
+      & ~ div {
+        border-bottom: none;
+        & > div{
+          width: 100%;
+        }
+      }
+    }
+  }
+  &__icon {
+    width: 30px;
+    height: 30px;
+    align-self: center;
+    margin-right: 10px;
+    filter: invert(100%);
+  }
+}
