@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { UserAuth } from "../../services/AuthContext/AuthContext";
+import { useAuth } from "../../services/AuthContext/AuthContext";
 
 import s from "./account.module.scss";
 
 export const Account = () => {
-  const { user, logout } = UserAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {

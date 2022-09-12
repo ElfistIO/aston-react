@@ -14,8 +14,8 @@ export const PrintInfo = (props: Props) => {
 
   useEffect(() => {
     async function getPrints() {
-      await props
-        .card!.getPrints()
+      await props.card
+        ?.getPrints()
         .then((prints) => setPrints(prints))
         .catch(console.error);
     }

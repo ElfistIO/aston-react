@@ -1,6 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { magicApi } from "./slices/apiSlice";
-import { setupListeners } from "@reduxjs/toolkit/query";
 
 import cardState from "./slices/cardSlice";
 import searchReducer from "./slices/searchSlice";
@@ -18,8 +17,6 @@ export const store = configureStore({
       serializableCheck: false,
     }).concat(magicApi.middleware),
 });
-
-setupListeners(store.dispatch);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

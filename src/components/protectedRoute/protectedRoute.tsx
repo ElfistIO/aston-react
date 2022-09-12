@@ -1,19 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { UserAuth } from "../../services/AuthContext/AuthContext";
+import { useAuth } from "../../services/AuthContext/AuthContext";
 
 interface AuthContextProps {
-  children?: any;
+  children: JSX.Element;
 }
-// Если поставить ReactNode, то роут выдает ошибку в App.tsx
-// Официальный ответ Microsoft по типу children
-// https://github.com/Microsoft/TypeScript/issues/6471
 
 export const ProtectedRoute = ({ children }: AuthContextProps) => {
-  const { user } = UserAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   if (!user) {
-    return navigate("/login");
+    navigate("/login");
+    return null;
   }
 
   return children;

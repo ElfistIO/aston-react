@@ -15,21 +15,28 @@ import {
 } from "firebase/auth";
 import { auth } from "../firestore";
 
-export interface UserContextProps {
+export interface AuthContextProps {
   createUser: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<UserCredential>;
-  user: User | null | undefined;
+  user: User | null;
 }
 
-const UserContext = createContext<UserContextProps>(null!);
+const initialState: AuthContextProps = {
+  createUser: (email, password) => new Promise<UserCredential>(() => {}),
+  signIn: (email, password) => new Promise<UserCredential>(() => {}),
+  logout: () => new Promise(() => {}),
+  user: null,
+};
 
-interface AuthContextProps {
+const AuthContext = createContext<AuthContextProps>(initialState);
+
+interface AuthProviderProps {
   children?: ReactNode;
 }
 
-export const AuthContextProvider = ({ children }: AuthContextProps) => {
-  const [user, setUser] = useState<User | null>();
+export const AuthContextProvider = ({ children }: AuthProviderProps) => {
+  const [user, setUser] = useState<User | null>(null);
   const createUser = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -51,12 +58,12 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
   }, []);
 
   return (
-    <UserContext.Provider value={providerValue}>
+    <AuthContext.Provider value={providerValue}>
       {children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-export const UserAuth = () => {
-  return useContext(UserContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
 };

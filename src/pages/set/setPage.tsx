@@ -41,10 +41,7 @@ export const SetPage = () => {
     }
     getSet();
     async function getCards() {
-      await set
-        ?.getCards()
-        .then((cards) => setCards(cards))
-        .catch(console.error);
+      await set?.getCards().then(setCards).catch(console.error);
     }
     getCards();
     setIsLoadingState(false);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigateSearch } from "../../app/hooks";
 
 import s from "./login.module.scss";
-import { UserAuth } from "../../services/AuthContext/AuthContext";
+import { useAuth } from "../../services/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/UI/button/button";
 
@@ -12,7 +12,7 @@ export const Login = () => {
   const [catchError, setError] = useState<boolean>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const navigate = useNavigateSearch();
-  const { signIn } = UserAuth();
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();

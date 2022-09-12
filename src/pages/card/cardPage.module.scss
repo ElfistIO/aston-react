@@ -1,6 +1,6 @@
 .main {
   &__wrapper {
-    height: calc(100vh - 79px)
+    min-height: calc(100vh - 79px)
   }
   &__cards {
     width: 100%;

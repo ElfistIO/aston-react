@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigateSearch } from "../../app/hooks";
-import { UserAuth } from "../../services/AuthContext/AuthContext";
+import { useAuth } from "../../services/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/UI/button/button";
 
@@ -11,15 +11,14 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [catchError, setError] = useState<boolean | string>();
   const navigate = useNavigateSearch();
-  const { createUser } = UserAuth();
+  const { createUser } = useAuth();
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setError(false);
     try {
-      await createUser(email, password).then((userCredential) => {
-        const user = userCredential.user;
-        navigate("/account", { id: user.uid });
+      createUser(email, password).then((userCredential) => {
+        navigate("/account", { id: userCredential.user.uid });
       });
     } catch (error) {
       setError((error as Error).message);
@@ -54,7 +53,7 @@ export const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <label htmlFor="password">Password</label>
-                {catchError === true && (
+                {catchError && (
                   <div style={{ color: "red" }}>Wrong email or password</div>
                 )}
               </div>
