@@ -10,11 +10,12 @@ interface Props {
 
 export const SetInfo = (props: Props) => {
   const card = props.card;
+  const setName = card?.set_name;
   const [set, setSet] = useState<Scry.Set>();
 
   const getSet = useCallback(async (): Promise<void> => {
-    await Scry.Sets.byName(card!.set_name).then((set) => setSet(set));
-  }, [card]);
+    if (setName) await Scry.Sets.byName(setName).then((set) => setSet(set));
+  }, [setName]);
 
   useEffect(() => {
     getSet().catch(console.error);

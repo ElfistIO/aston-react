@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  createSearchParams,
-  URLSearchParamsInit,
-  useNavigate,
-} from "react-router-dom";
 import { Button } from "../UI/button/button";
-import { useAppDispatch } from "../../app/hooks";
+import {
+  useAppDispatch,
+  useDebounceFunc,
+  useNavigateSearch,
+} from "../../app/hooks";
 import {
   setSearchInputState,
   setSearchState,
@@ -15,14 +14,9 @@ import { MagicArray } from "scryfall-sdk/out/util/MagicEmitter";
 import * as Scry from "scryfall-sdk";
 import s from "./search.module.scss";
 
-export const useNavigateSearch = () => {
-  const navigate = useNavigate();
-  return (pathname: string, params: URLSearchParamsInit | undefined) =>
-    navigate({ pathname, search: `?${createSearchParams(params)}` });
-};
-
 export const Search = () => {
   const [inputValue, setInputValue] = useState<string>("");
+  const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
   const searchInput = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigateSearch();
   const dispatch = useAppDispatch();
@@ -35,10 +29,17 @@ export const Search = () => {
     dispatch(setSearchState(result));
   }
 
+  const searchWithDebounce = useDebounceFunc(
+    (inputValue) => fetchSearch(inputValue),
+    300
+  );
+
   function handleSubmit(e: React.SyntheticEvent) {
+    setIsLoadingState(true);
     e.preventDefault();
     if (inputValue === "") return;
-    fetchSearch(inputValue);
+    searchWithDebounce(inputValue);
+    setIsLoadingState(false);
     navigate("/searchResult", { search: inputValue });
   }
 
@@ -52,30 +53,36 @@ export const Search = () => {
 
   return (
     <div className="row">
-      <form
-        className={"col s6 offset-s3 valign-wrapper"}
-        onSubmit={handleSubmit}
-      >
-        <div className="input-field col s9">
-          <input
-            id="search"
-            type="search"
-            className={s.search__input}
-            ref={searchInput}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <label className="label-icon" htmlFor="search">
-            <i className="material-icons">search</i>
-          </label>
-          <i className="material-icons" onClick={handleClearInput}>
-            close
-          </i>
+      {isLoadingState ? (
+        <div className="progress cyan lighten-1">
+          <div className="indeterminate"></div>
         </div>
-        <div className="col s3 ">
-          <Button color="brown darken-3" text="Search" />
-        </div>
-      </form>
+      ) : (
+        <form
+          className={"col s6 offset-s3 valign-wrapper"}
+          onSubmit={handleSubmit}
+        >
+          <div className="input-field col s9">
+            <input
+              id="search"
+              type="search"
+              className={s.search__input}
+              ref={searchInput}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <label className="label-icon" htmlFor="search">
+              <i className="material-icons">search</i>
+            </label>
+            <i className="material-icons" onClick={handleClearInput}>
+              close
+            </i>
+          </div>
+          <div className="col s3 ">
+            <Button color="brown darken-3" text="Search" />
+          </div>
+        </form>
+      )}
     </div>
   );
 };

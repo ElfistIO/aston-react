@@ -1,7 +1,11 @@
+@import './../../helpers/constants.scss';
+
 .filter {
   &__wrapper {
     padding: 5px 0;
     border-bottom: 1px solid rgb(175, 175, 175);
+    background-color: $color_medium;
+    color: #fff;
     & div {
       display: flex;
       align-items: center;
