@@ -14,6 +14,13 @@ export const Header = () => {
           {user ? (
             <>
               <li>
+                <Link to={{ pathname: "/wishList", search: `id=${user.uid}` }}>
+                  <i className="material-icons" title="Your wish list">
+                    favorite
+                  </i>
+                </Link>
+              </li>
+              <li>
                 <Link
                   to={{ pathname: "/collection", search: `id=${user.uid}` }}
                 >

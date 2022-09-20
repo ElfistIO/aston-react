@@ -33,6 +33,12 @@ const SearchResult = lazy(() =>
   }))
 );
 
+const WishList = lazy(() =>
+  import("./pages/wishList/wishList").then(({ WishList }) => ({
+    default: WishList,
+  }))
+);
+
 function App() {
   return (
     <>
@@ -67,7 +73,19 @@ function App() {
               path="/collection"
               element={
                 <ProtectedRoute>
-                  <Collection />
+                  <ErrorBoundary>
+                    <Collection />
+                  </ErrorBoundary>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/wishList"
+              element={
+                <ProtectedRoute>
+                  <ErrorBoundary>
+                    <WishList />
+                  </ErrorBoundary>
                 </ProtectedRoute>
               }
             />

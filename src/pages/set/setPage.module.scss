@@ -1,0 +1,8 @@
+@import './../../helpers/constants.scss';
+
+.setPage {
+  &__wrapper {
+    min-height: calc(100vh - 64px);
+    background-color: $color_light_blue;
+  }
+}

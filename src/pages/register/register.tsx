@@ -9,7 +9,8 @@ import s from "./register.module.scss";
 export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [catchError, setError] = useState<boolean | string>();
+  const [catchError, setError] = useState<boolean>();
+  const [errorMessage, setErrorMessage] = useState<string>();
   const navigate = useNavigateSearch();
   const { createUser } = useAuth();
 
@@ -17,11 +18,14 @@ export const Register = () => {
     e.preventDefault();
     setError(false);
     try {
-      createUser(email, password).then((userCredential) => {
+      await createUser(email, password).then((userCredential) => {
         navigate("/account", { id: userCredential.user.uid });
       });
     } catch (error) {
-      setError((error as Error).message);
+      setError(true);
+      const errorMessage = (error as Error).message;
+      setErrorMessage(errorMessage);
+      console.error(errorMessage);
     }
   };
 
@@ -54,7 +58,7 @@ export const Register = () => {
                 />
                 <label htmlFor="password">Password</label>
                 {catchError && (
-                  <div style={{ color: "red" }}>Wrong email or password</div>
+                  <div style={{ color: "red" }}>{errorMessage?.slice(10)}</div>
                 )}
               </div>
 

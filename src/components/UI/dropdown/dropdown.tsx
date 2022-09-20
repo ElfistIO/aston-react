@@ -21,16 +21,18 @@ export const Dropdown = (props: Props) => {
     <>
       <button
         className={`dropdown-trigger btn-small ${props.color || "transparent"}`}
-        data-target={`dropList${props.list[0]}`}
+        data-target={`dropList${props.list.at(0)}`}
+        type="button"
       >
         {dropText} <i className="material-icons">unfold_more</i>
       </button>
-      <ul id={`dropList${props.list[0]}`} className="dropdown-content">
+      <ul id={`dropList${props.list.at(0)}`} className="dropdown-content">
         {props.list.map((listItem, index) => (
           <li key={index}>
             <button
-              className={"blue-grey lighten-4"}
+              className={""}
               onClick={() => toggleDropdown(listItem)}
+              type="button"
             >
               {listItem}
             </button>

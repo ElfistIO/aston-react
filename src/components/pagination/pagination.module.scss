@@ -1,0 +1,68 @@
+@import './../../helpers/constants.scss';
+
+.pagination {
+  &__wrapper{
+    display: flex;
+    justify-content: center;
+    & ul {
+      justify-content: center;
+    }
+  }
+  &__button {
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    width: 25px;
+    padding: 2px 0;
+    margin: 0 5px;
+    background-color: $color_medium;
+    &:hover {
+      background-color: $color_dark;
+    }
+  }
+}
+
+.pagination__wrapper ul .pagination__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 31px;
+  border-radius: 5px;
+  background-color: $color_dark;
+}
+.pagination__wrapper ul {
+  display: flex;
+  & .pagination__item_prev {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    & button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
+  & .pagination__item_next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    & button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
+.pagination__wrapper ul li {
+  display: flex;
+}

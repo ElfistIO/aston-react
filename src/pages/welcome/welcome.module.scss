@@ -5,9 +5,23 @@
   height: calc(100vh - 64px);
   background: linear-gradient(180deg, rgba(78,52,46,1) 0%, rgba(78,52,46,1) 20%, #698287 100%);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+    &_box {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
   }
   &__header_bold {
     font-weight: 700;
+  }
+  &__buttons_box {
+    display: flex;
+    justify-content: center;
+    margin-right: 10%;
+    & button {
+      margin-right: 15px;
+    }
   }
 }

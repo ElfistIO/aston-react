@@ -61,7 +61,7 @@ export const Login = () => {
                 />
                 <label htmlFor="password">Password</label>
                 {catchError && (
-                  <div style={{ color: "red" }}>{errorMessage}</div>
+                  <div style={{ color: "red" }}>{errorMessage?.slice(10)}</div>
                 )}
               </div>
 
