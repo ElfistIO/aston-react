@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import * as Scry from "scryfall-sdk";
 
-interface setsState {
+interface SetsState {
   sets: Scry.Set[];
 }
 
-const initialState: setsState = {
+const initialState: SetsState = {
   sets: [],
 };
 

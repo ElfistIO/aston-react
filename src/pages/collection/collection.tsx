@@ -18,11 +18,13 @@ import { setCollection } from "../../app/slices/collection";
 
 import s from "./collection.module.scss";
 
+const CARDS_PER_PAGE = 20;
+
 export const Collection = () => {
   const { user } = useAuth();
   const userCollection = useAppSelector((state) => state.collection.collection);
   const [showType, setShowType] = useState<string>("images");
-  // заготовка
+  //
   const [sortListBy, setSortListBy] = useState<string>("name");
   const { data, isLoading } = useGetCollectionQuery(
     {
@@ -31,10 +33,8 @@ export const Collection = () => {
     { skip: !userCollection }
   );
   const [currentPage, setCurrentPage] = useState(1);
-  const CARDS_PER_PAGE = 20;
   const indexOfLastCard = currentPage * CARDS_PER_PAGE;
   const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
-  const currentCards = data?.data.slice(indexOfFirstCard, indexOfLastCard);
   const paginate = (pageNumber: SetStateAction<number>) => {
     setCurrentPage(pageNumber);
   };
@@ -43,13 +43,29 @@ export const Collection = () => {
   function renderShowType(showType: string) {
     switch (showType) {
       case "images":
-        return <ImageType cards={currentCards} />;
+        return (
+          <ImageType
+            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+          />
+        );
       case "checklist":
-        return <ChecklistType cards={currentCards} />;
+        return (
+          <ChecklistType
+            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+          />
+        );
       case "full":
-        return <FullType cards={currentCards} />;
+        return (
+          <FullType
+            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+          />
+        );
       default:
-        return <ImageType cards={currentCards} />;
+        return (
+          <ImageType
+            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+          />
+        );
     }
   }
 

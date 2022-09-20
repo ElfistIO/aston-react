@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
 
-interface wishListState {
+interface WishListState {
   wishList: DocumentData[] | undefined;
 }
 
-const initialState: wishListState = {
+const initialState: WishListState = {
   wishList: undefined,
 };
 

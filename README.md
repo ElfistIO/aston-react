@@ -27,7 +27,7 @@
 
 - Используем Modern Redux with Redux Toolkit [reducers](./src/app/store.ts).
 - Используем слайсы [reducers](./src/app/slices/).
-- Есть хотя бы одна кастомная мидлвара [localStorageMiddleware](./src/app/localStorageMiddleware.ts).
+- Есть хотя бы одна кастомная мидлвара [logger](./src/app/middleware/logger.ts).
 - Используется RTK Query [apiSlice](./src/app/slices/apiSlice.ts).
 - Используется Transforming Responses [apiSlice](./src/app/slices/apiSlice.ts).
 

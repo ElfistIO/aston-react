@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-// import { cardslistener } from "./middleware/logger";
+import { saveHistory } from "./middleware/logger";
 import { magicApi } from "./slices/apiSlice";
 import collection from "./slices/collection";
 import searchReducer from "./slices/searchSlice";
@@ -17,8 +17,9 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(magicApi.middleware),
-  // .prepend(cardslistener.middleware),
+    })
+      .concat(magicApi.middleware)
+      .prepend(saveHistory.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

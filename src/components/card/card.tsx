@@ -110,7 +110,7 @@ export const Card = (props: Props) => {
           {card?.layout === "normal" ? (
             <div className={s.card__img_front}>
               <img
-                src={card.image_uris?.large}
+                src={card.image_uris?.normal}
                 alt={`${card.name}`}
                 className={s.card__img}
               />
@@ -125,7 +125,7 @@ export const Card = (props: Props) => {
             <>
               <div className={s.card__img_front}>
                 <img
-                  src={card?.card_faces.at(0)?.image_uris?.large}
+                  src={card?.card_faces.at(0)?.image_uris?.normal}
                   alt={`${card?.name}`}
                   className={s.card__img}
                 />
@@ -147,7 +147,7 @@ export const Card = (props: Props) => {
               </div>
               <div className={s.card__img_back}>
                 <img
-                  src={card?.card_faces.at(1)?.image_uris?.large}
+                  src={card?.card_faces.at(1)?.image_uris?.normal}
                   alt={`${card?.name}`}
                   className={s.card__img}
                 />

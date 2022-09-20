@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DocumentData } from "firebase/firestore";
 
-interface collectionState {
-  collection: DocumentData[] | undefined;
+interface CollectionState {
+  collection?: DocumentData[];
 }
 
-const initialState: collectionState = {
+const initialState: CollectionState = {
   collection: undefined,
 };
 

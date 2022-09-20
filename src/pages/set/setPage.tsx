@@ -6,10 +6,10 @@ import { SetHeader } from "../../components/setHeader/setHeader";
 import { ChecklistType } from "../searchResult/checklistType/checklistType";
 import { FullType } from "../searchResult/FullType/FullType";
 import { ImageType } from "../searchResult/imageType/imageType";
+import { Pagination } from "../../components/pagination/pagination";
 
 import * as Scry from "scryfall-sdk";
 import s from "./setPage.module.scss";
-import { Pagination } from "../../components/pagination/pagination";
 
 export const SetPage = () => {
   const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
