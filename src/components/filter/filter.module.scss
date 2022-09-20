@@ -22,5 +22,28 @@
     & button {
       display: flex;
     }
+    & ul {
+      height: none;
+      & li {
+        border-bottom: 1px solid $color_blue;
+
+      }
+      & button {
+        font-size: 12px;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        width: 100%;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        background-color: $color_light_blue;
+        &:hover {
+          background-color: $color_blue;
+          color: white;
+        }
+      }
+    }
   }
 }

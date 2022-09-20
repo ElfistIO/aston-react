@@ -1,21 +1,25 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { saveHistory } from "./middleware/logger";
 import { magicApi } from "./slices/apiSlice";
-
-import cardState from "./slices/cardSlice";
+import collection from "./slices/collection";
 import searchReducer from "./slices/searchSlice";
 import setsReducer from "./slices/setsSlice";
+import wishList from "./slices/wishList";
 
 export const store = configureStore({
   reducer: {
     searchResult: searchReducer,
     sets: setsReducer,
-    card: cardState,
+    collection: collection,
+    wishList: wishList,
     [magicApi.reducerPath]: magicApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(magicApi.middleware),
+    })
+      .concat(magicApi.middleware)
+      .prepend(saveHistory.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

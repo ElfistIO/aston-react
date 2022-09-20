@@ -23,7 +23,8 @@ export const Search = () => {
 
   async function fetchSearch(search: string) {
     const result: MagicArray<Scry.Card, never> = await Scry.Cards.search(
-      `name:${search}`
+      `name:${search}`,
+      { page: 1 }
     ).waitForAll();
     dispatch(setSearchInputState(inputValue));
     dispatch(setSearchState(result));
@@ -37,7 +38,10 @@ export const Search = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     setIsLoadingState(true);
     e.preventDefault();
-    if (inputValue === "") return;
+    if (!inputValue) {
+      setIsLoadingState(false);
+      return;
+    }
     searchWithDebounce(inputValue);
     setIsLoadingState(false);
     navigate("/searchResult", { search: inputValue });

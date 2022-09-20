@@ -7,6 +7,7 @@ import { db } from "../../services/firestore";
 
 import * as Scry from "scryfall-sdk";
 import s from "./card.module.scss";
+import PropTypes from "prop-types";
 
 interface Props {
   card: Scry.Card | undefined;
@@ -26,53 +27,38 @@ export const Card = (props: Props) => {
     refCard.current?.classList.toggle(`${s.flip__card}`);
   }
 
-  // async function addToList(e: React.SyntheticEvent, listname: string) {
-  //   e.preventDefault();
-  //   if (!(listname === "wishList" ? isWish : isCollection)) {
-  //     await setDoc(doc(db, "users", `${user?.uid}`, listname, `${card!.id}`), {
-  //       card,
-  //     });
-  //     listname === "wishList"
-  //       ? setwishIcon("favorite")
-  //       : setCollectionIcon("playlist_add_check");
-  //   } else {
-  //     await deleteDoc(
-  //       doc(db, "users", `${user?.uid}`, listname, `${card!.id}`)
-  //     );
-  //     listname === "wishList"
-  //       ? setwishIcon("favorite_border")
-  //       : setCollectionIcon("playlist_add");
-  //   }
-  // }
-
   async function addToWishList(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (!isCollection) {
+    if (!isWish) {
       await setDoc(
         doc(db, "users", `${user?.uid}`, "wishList", `${card!.id}`),
-        card?.related_uris
+        { id: card?.id }
       );
+      setIsWish(true);
       setwishIcon("favorite");
     } else {
       await deleteDoc(
         doc(db, "users", `${user?.uid}`, "wishList", `${card!.id}`)
       );
+      setIsWish(false);
       setwishIcon("favorite_border");
     }
   }
 
   async function addToCollection(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (!isWish) {
+    if (!isCollection) {
       await setDoc(
         doc(db, "users", `${user?.uid}`, "collection", `${card!.id}`),
-        card?.related_uris
+        { id: card?.id }
       );
+      setIsCollection(true);
       setCollectionIcon("playlist_add_check");
     } else {
       await deleteDoc(
         doc(db, "users", `${user?.uid}`, "collection", `${card!.id}`)
       );
+      setIsCollection(false);
       setCollectionIcon("playlist_add");
     }
   }
@@ -113,10 +99,8 @@ export const Card = (props: Props) => {
       }
     }
 
-    if (user) {
-      checkCards("collection");
-      checkCards("wishList");
-    }
+    checkCards("collection");
+    checkCards("wishList");
   }, [card, user]);
 
   return (
@@ -126,7 +110,7 @@ export const Card = (props: Props) => {
           {card?.layout === "normal" ? (
             <div className={s.card__img_front}>
               <img
-                src={card.image_uris?.large}
+                src={card.image_uris?.normal}
                 alt={`${card.name}`}
                 className={s.card__img}
               />
@@ -141,7 +125,7 @@ export const Card = (props: Props) => {
             <>
               <div className={s.card__img_front}>
                 <img
-                  src={card?.card_faces.at(0)?.image_uris?.large}
+                  src={card?.card_faces.at(0)?.image_uris?.normal}
                   alt={`${card?.name}`}
                   className={s.card__img}
                 />
@@ -163,7 +147,7 @@ export const Card = (props: Props) => {
               </div>
               <div className={s.card__img_back}>
                 <img
-                  src={card?.card_faces.at(1)?.image_uris?.large}
+                  src={card?.card_faces.at(1)?.image_uris?.normal}
                   alt={`${card?.name}`}
                   className={s.card__img}
                 />
@@ -189,4 +173,8 @@ export const Card = (props: Props) => {
       </div>
     </Link>
   );
+};
+
+Card.propTypes = {
+  card: PropTypes.object,
 };

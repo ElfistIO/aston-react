@@ -1,0 +1,10 @@
+@import './../../helpers/constants.scss';
+
+.collection {
+  &__wrapper{
+  min-height: calc(100vh - 64px);
+  background: $color_light_blue;
+  display: flex;
+  flex-direction: column;
+  }
+}

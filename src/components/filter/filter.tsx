@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { Dropdown } from "../UI/dropdown/dropdown";
 
 import M from "materialize-css";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Filter = (props: Props) => {
-  M.AutoInit();
+  useEffect(() => M.AutoInit());
   return (
     <div className={s.filter__wrapper}>
       <div className="container">
@@ -22,7 +22,7 @@ export const Filter = (props: Props) => {
         />
         <span>sorted by</span>
         <Dropdown
-          list={["name", "set", "rarity", "color"]}
+          list={["name", "set", "rarity", "type"]}
           color={"brown darken-2"}
           action={props.setSortListBy}
         />

@@ -1,28 +1,37 @@
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Filter } from "../../components/filter/filter";
 import { ImageType } from "./imageType/imageType";
 import { ChecklistType } from "./checklistType/checklistType";
 import { FullType } from "./FullType/FullType";
-
-import * as Scry from "scryfall-sdk";
-import s from "./searchResult.module.scss";
 import { MagicArray } from "scryfall-sdk/out/util/MagicEmitter";
 import {
   setSearchInputState,
+  setSearchSort,
   setSearchState,
 } from "../../app/slices/searchSlice";
 import { useSearchParams } from "react-router-dom";
 
+import * as Scry from "scryfall-sdk";
+import s from "./searchResult.module.scss";
+import { Pagination } from "../../components/pagination/pagination";
+
 export const SearchResult = () => {
   const [showType, setShowType] = useState<string>("images");
-  // сортировка пока не реализована. заготовка
   const [sortListBy, setSortListBy] = useState<string>("name");
   const [searchParams] = useSearchParams();
   const searchValue = searchParams.get("search");
   const dispatch = useAppDispatch();
   const cards = useAppSelector((state) => state.searchResult.searchState);
   const searchInput = useAppSelector((state) => state.searchResult.searchInput);
+  const [currentPage, setCurrentPage] = useState(1);
+  const CARDS_PER_PAGE = 20;
+  const indexOfLastCard = currentPage * CARDS_PER_PAGE;
+  const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
+  const currentCards = cards.slice(indexOfFirstCard, indexOfLastCard);
+  const paginate = (pageNumber: SetStateAction<number>) => {
+    setCurrentPage(pageNumber);
+  };
 
   if (cards.length === 0) {
     async function fetchSearch(search: string) {
@@ -38,15 +47,19 @@ export const SearchResult = () => {
   function renderShowType(showType: string) {
     switch (showType) {
       case "images":
-        return <ImageType cards={cards} />;
+        return <ImageType cards={currentCards} />;
       case "checklist":
-        return <ChecklistType cards={cards} />;
+        return <ChecklistType cards={currentCards} />;
       case "full":
-        return <FullType cards={cards} />;
+        return <FullType cards={currentCards} />;
       default:
-        return <ImageType cards={cards} />;
+        return <ImageType cards={currentCards} />;
     }
   }
+
+  useEffect(() => {
+    dispatch(setSearchSort(sortListBy));
+  }, [dispatch, sortListBy]);
 
   return (
     <main className={s.main__result}>
@@ -59,7 +72,15 @@ export const SearchResult = () => {
           </span>
         </div>
       </div>
-      <div className="container">{renderShowType(showType)}</div>
+      <div className="container">
+        {renderShowType(showType)}
+        <Pagination
+          count={cards?.length}
+          paginate={paginate}
+          cardsPerPage={CARDS_PER_PAGE}
+          currentPage={currentPage}
+        />
+      </div>
     </main>
   );
 };

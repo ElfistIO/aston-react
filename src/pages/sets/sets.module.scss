@@ -1,0 +1,28 @@
+@import './../../helpers/constants.scss';
+
+.sets {
+  &__wrapper{
+    background-color: $color_light_blue;
+    padding: 15px 0;
+  }
+  &__box a:nth-child(odd) {
+      background-color: rgba(154, 156, 158, 0.301);
+  }
+  &__header{
+    &_wrapper{
+    display: grid;
+    padding: 5px 5px;
+    grid-template-columns: 1fr 150px 150px;
+    background-color: $color_blue;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    }
+    &_count {
+      padding-left: 10px;
+    }
+    &_date {
+      padding-left: 10px;
+    }
+  }
+}

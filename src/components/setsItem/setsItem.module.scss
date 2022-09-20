@@ -1,0 +1,27 @@
+@import './../../helpers/constants.scss';
+
+.setsItem {
+  &__wrapper{
+    display:grid;
+    grid-template-columns: 1fr 150px 150px;
+    border-bottom: 1px solid rgb(175, 175, 175);
+    padding: 5px 0;
+    color: black;
+    &:hover {
+      background-color: $color_blue;
+      color: white;
+    }
+    & * {
+      margin: 0 5px;
+    }
+  }
+  &__name {
+    display: flex ;
+  }
+  &__icon {
+    width: 30px;
+    height: 30px;
+    align-self: center;
+    margin-right: 10px;
+  }
+}

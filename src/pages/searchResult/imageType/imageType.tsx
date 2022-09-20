@@ -11,8 +11,8 @@ export const ImageType = ({ cards }: Props) => {
   return (
     <>
       {cards?.length === 0 ? (
-        <div className={s.main__empty}>
-          Sorry, we didn't find anything for your request
+        <div className="progress cyan lighten-1">
+          <div className="indeterminate"></div>
         </div>
       ) : (
         <div className={s.main__cards}>

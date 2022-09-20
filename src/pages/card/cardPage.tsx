@@ -4,14 +4,18 @@ import { Card } from "../../components/card/card";
 import { CardInfo } from "../../components/cardInfo/cardinfo";
 import { PrintInfo } from "../../components/printInfo/printInfo";
 import { SetInfo } from "../../components/setInfo/setInfo";
+import { Rulings } from "../../components/rulings/rulings";
 
 import * as Scry from "scryfall-sdk";
 import s from "./cardPage.module.scss";
+import M from "materialize-css";
 
 export const CardPage = () => {
+  useEffect(() => M.AutoInit());
   const [card, setCard] = useState<Scry.Card>();
+  const [rulings, setRulings] = useState<Scry.Ruling[]>();
   const [searchParams] = useSearchParams();
-  const cardId = searchParams.get("id");
+  const cardId = searchParams?.get("id");
 
   useEffect(() => {
     async function getCard() {
@@ -20,7 +24,11 @@ export const CardPage = () => {
         .catch(console.error);
     }
     getCard();
-  }, [cardId]);
+    async function getRulings() {
+      await card?.getRulings().then((rulings) => setRulings(rulings));
+    }
+    getRulings();
+  }, [card, cardId]);
 
   return (
     <div className={s.main__wrapper}>
@@ -35,7 +43,11 @@ export const CardPage = () => {
             </div>
           </div>
         </div>
-        <div>rulings</div>
+        {!rulings?.length ? (
+          <div>There's no rulings for this card.</div>
+        ) : (
+          <Rulings rulings={rulings} />
+        )}
       </div>
     </div>
   );
