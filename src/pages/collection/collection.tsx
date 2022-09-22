@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { setCollection } from "../../app/slices/collection";
 
 import s from "./collection.module.scss";
+import * as Scry from "scryfall-sdk";
 
 const CARDS_PER_PAGE = 20;
 
@@ -24,7 +25,6 @@ export const Collection = () => {
   const { user } = useAuth();
   const userCollection = useAppSelector((state) => state.collection.collection);
   const [showType, setShowType] = useState<string>("images");
-  //
   const [sortListBy, setSortListBy] = useState<string>("name");
   const { data, isLoading } = useGetCollectionQuery(
     {
@@ -40,30 +40,57 @@ export const Collection = () => {
   };
   const dispatch = useAppDispatch();
 
+  function sortList(a: Scry.Card, b: Scry.Card, sortListBy: string) {
+    switch (sortListBy) {
+      case "name":
+        return a.name.localeCompare(b.name);
+      case "set":
+        return a.set_name.localeCompare(b.set_name);
+      case "rarity":
+        return a.rarity.localeCompare(b.rarity);
+      case "type":
+        return a.type_line.localeCompare(b.type_line);
+      default:
+        return a.name.localeCompare(b.name);
+    }
+  }
+
   function renderShowType(showType: string) {
     switch (showType) {
       case "images":
         return (
           <ImageType
-            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+            cards={data?.data
+              .slice()
+              .sort((a, b) => sortList(a, b, sortListBy))
+              .slice(indexOfFirstCard, indexOfLastCard)}
           />
         );
       case "checklist":
         return (
           <ChecklistType
-            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+            cards={data?.data
+              .slice()
+              .sort((a, b) => sortList(a, b, sortListBy))
+              .slice(indexOfFirstCard, indexOfLastCard)}
           />
         );
       case "full":
         return (
           <FullType
-            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+            cards={data?.data
+              .slice()
+              .sort((a, b) => sortList(a, b, sortListBy))
+              .slice(indexOfFirstCard, indexOfLastCard)}
           />
         );
       default:
         return (
           <ImageType
-            cards={data?.data.slice(indexOfFirstCard, indexOfLastCard)}
+            cards={data?.data
+              .slice()
+              .sort((a, b) => sortList(a, b, sortListBy))
+              .slice(indexOfFirstCard, indexOfLastCard)}
           />
         );
     }

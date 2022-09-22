@@ -1,10 +1,23 @@
-import { Link } from "react-router-dom";
+import { FooterItem } from "./footerItem";
 
 import s from "./footer.module.scss";
 
+const footerList1 = [
+  { link: "advanced", text: "Advanced Search" },
+  { link: "syntax", text: "Syntax Guide" },
+  { link: "sets", text: "All sets" },
+  { link: "card", text: "Random card" },
+];
+const footerList2 = [
+  { link: "account", text: "Your Account" },
+  { link: "register", text: "Register" },
+  { link: "terms", text: "Terms of Service" },
+  { link: "contact", text: "Contact Us" },
+  { link: "privacy", text: "Privacy & Security" },
+];
+
 export const Footer = () => {
   return (
-    // заготовка. переработать на компоненты
     <div className={s.footer__wrapper}>
       <footer className="page-footer brown darken-3">
         <div className="container">
@@ -19,56 +32,25 @@ export const Footer = () => {
             <div className="col l2 offset-l4 s6">
               <h5 className="white-text">Cards</h5>
               <ul>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!">
-                    Advanced Search
-                  </a>
-                </li>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!">
-                    Syntax Guide
-                  </a>
-                </li>
-                <li>
-                  <Link to="/sets" className="grey-text text-lighten-3">
-                    All sets
-                  </Link>
-                </li>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!">
-                    Random card
-                  </a>
-                </li>
+                {footerList1.map((footerItem, index) => (
+                  <FooterItem
+                    link={footerItem.link}
+                    text={footerItem.text}
+                    key={index}
+                  />
+                ))}
               </ul>
             </div>
             <div className="col l2 s6">
               <h5 className="white-text">Account</h5>
               <ul>
-                <li>
-                  <Link to="/account" className="grey-text text-lighten-3">
-                    Your Account
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/register" className="grey-text text-lighten-3">
-                    Register
-                  </Link>
-                </li>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!">
-                    Terms of Service
-                  </a>
-                </li>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!">
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!">
-                    Privacy & Security
-                  </a>
-                </li>
+                {footerList2.map((footerItem, index) => (
+                  <FooterItem
+                    link={footerItem.link}
+                    text={footerItem.text}
+                    key={index}
+                  />
+                ))}
               </ul>
             </div>
           </div>

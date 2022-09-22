@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigateSearch } from "../../app/hooks";
-
-import s from "./login.module.scss";
 import { useAuth } from "../../services/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/UI/button/button";
+
+import s from "./login.module.scss";
 
 export const Login = () => {
   const [email, setEmail] = useState("");

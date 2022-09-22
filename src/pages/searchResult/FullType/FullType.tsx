@@ -1,10 +1,10 @@
 import { Card } from "../../../components/card/card";
 import { CardInfo } from "../../../components/cardInfo/cardinfo";
 import { SetInfo } from "../../../components/setInfo/setInfo";
+import { PrintInfo } from "../../../components/printInfo/printInfo";
 
 import * as Scry from "scryfall-sdk";
 import s from "./Fulltype.module.scss";
-import { PrintInfo } from "../../../components/printInfo/printInfo";
 
 interface Props {
   cards: Array<Scry.Card> | undefined;

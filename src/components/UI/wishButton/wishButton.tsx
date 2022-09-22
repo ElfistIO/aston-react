@@ -1,4 +1,3 @@
-import React from "react";
 import { MATCH_SPACE } from "../../../helpers/constants";
 
 interface Props {

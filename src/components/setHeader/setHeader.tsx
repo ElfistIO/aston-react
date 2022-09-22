@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import * as Scry from "scryfall-sdk";
 import { Filter } from "../filter/filter";
+
+import * as Scry from "scryfall-sdk";
 import s from "./setHeader.module.scss";
 
 interface Props {

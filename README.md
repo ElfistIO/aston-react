@@ -1,8 +1,8 @@
-# Magic The Gathering Project
+# Magic: The Gathering Project
 
 ![](./src/assets/images/mtg-logo2.png)
 
-## Примеры запросов
+## Примеры поисковых запросов
 
 - Lotus
 - Urza
@@ -16,9 +16,9 @@
 - Есть четкое разделение на умные и глупые компоненты.
 - Есть рендеринг списков [ImageType](./src/pages/searchResult/imageType/imageType.tsx), [FullType](./src/pages/searchResult/FullType/FullType.tsx), [CheckListType](./src/pages/searchResult/checkListType/checkListType.tsx).
 - Реализована хотя бы одна форма [Search](./src/components/search/search.tsx), [Login](./src/pages/login/login.tsx), [Register](./src/pages/register/register.tsx).
-- Есть применение Контекст API [AuthContext](./src/App.tsx), (./src/services/AuthContext/AuthContext.tsx).
-- Есть применение предохранителя [ErrorBoundary](./src/components/ErrorBoundary.tsx), (./src/App.tsx).
-- Есть хотя бы один кастомный хук [useNavigateSearch] [useDebounceFunc] [useDebounceValue](./src/app/hooks.ts), [useAuth](./src/services/AuthContext/AuthContext.tsx).
+- Есть применение Контекст API [AuthContext](./src/services/AuthContext/AuthContext.tsx).
+- Есть применение предохранителя [ErrorBoundary](./src/components/ErrorBoundary.tsx).
+- Есть хотя бы один кастомный хук [useNavigateSearch](./src/app/hooks.ts), [useDebounceFunc](./src/app/hooks.ts), [useDebounceValue](./src/app/hooks.ts), [useAuth](./src/services/AuthContext/AuthContext.tsx).
 - Хотя бы несколько компонентов используют PropTypes [Card](./src/components/card/card.tsx), [Pdgination](./src/components/pagination/pagination.tsx)
 - Поиск не должен триггерить много запросов к серверу (реализован debounce) [Search](./src/components/search/search.tsx).
 - Есть применение lazy + Suspense [App](./src/App.tsx)
@@ -34,3 +34,5 @@
 ## 2 уровень
 
 - Использование TypeScript.
+- Подключен Storybook и созданы несколько сторисов [button](./src/components/UI/button/button.stories.tsx), [dropdown](./src/components/UI/dropdown/dropdown.stories.tsx).
+- Реализована фича “Поделиться в телеграм”, закрытая под фича флагом.

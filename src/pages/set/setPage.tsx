@@ -44,7 +44,6 @@ export const SetPage = () => {
 
   useEffect(() => {
     setIsLoadingState(true);
-    // добавлено, чтобы при загрузке нового сета, старый было бы не видно
     dispatch(setSearchState([]));
     async function getSet() {
       if (setId) await Scry.Sets.byId(setId).then(setSet).catch(console.error);
