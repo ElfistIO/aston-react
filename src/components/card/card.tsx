@@ -146,7 +146,7 @@ export const Card = (props: Props) => {
                 </button>
                 {user && (
                   <div className={s.card__wish}>
-                    {isTelegram && (
+                    {isTelegram.isTelegramShareEnabled && (
                       <TelegramButton
                         cardUri={card?.related_uris.edhrec!}
                         cardName={card?.name!}
@@ -174,7 +174,7 @@ export const Card = (props: Props) => {
                 </button>
                 {user && (
                   <div className={s.card__wish}>
-                    {isTelegram && (
+                    {isTelegram.isTelegramShareEnabled && (
                       <TelegramButton
                         cardUri={card?.related_uris.edhrec!}
                         cardName={card?.name!}

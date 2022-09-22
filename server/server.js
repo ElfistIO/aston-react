@@ -4,6 +4,7 @@ const app = express();
 const port = 4000;
 
 app.get("/api/feature-flags", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.send({ isTelegramShareEnabled: true });
 });
 
