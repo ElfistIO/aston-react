@@ -1,7 +1,7 @@
+import { useEffect } from "react";
 import { Ruling } from "scryfall-sdk";
 
 import M from "materialize-css";
-import { useEffect } from "react";
 
 interface Props {
   rulings: Ruling[] | undefined;

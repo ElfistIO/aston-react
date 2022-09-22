@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Filter = (props: Props) => {
-  useEffect(() => M.AutoInit());
+  useEffect(() => M.AutoInit(), []);
   return (
     <div className={s.filter__wrapper}>
       <div className="container">

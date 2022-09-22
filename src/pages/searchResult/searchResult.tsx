@@ -11,10 +11,10 @@ import {
   setSearchState,
 } from "../../app/slices/searchSlice";
 import { useSearchParams } from "react-router-dom";
+import { Pagination } from "../../components/pagination/pagination";
 
 import * as Scry from "scryfall-sdk";
 import s from "./searchResult.module.scss";
-import { Pagination } from "../../components/pagination/pagination";
 
 export const SearchResult = () => {
   const [showType, setShowType] = useState<string>("images");

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigateSearch } from "../../app/hooks";
 import { useAuth } from "../../services/AuthContext/AuthContext";
 import { Link } from "react-router-dom";

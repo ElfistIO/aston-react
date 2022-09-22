@@ -2,16 +2,17 @@ import {
   createListenerMiddleware,
   TypedStartListening,
 } from "@reduxjs/toolkit";
-import { setSearchInputState } from "../slices/searchSlice";
+import { setSearchState } from "../slices/searchSlice";
 import type { RootState, AppDispatch } from "../store";
 
-export const saveHistory = createListenerMiddleware();
 type AppStartListening = TypedStartListening<RootState, AppDispatch>;
+
+export const saveHistory = createListenerMiddleware();
 const startAppListening = saveHistory.startListening as AppStartListening;
 
 startAppListening({
-  actionCreator: setSearchInputState,
-  effect: async (action, api) => {
+  actionCreator: setSearchState,
+  effect: async (action) => {
     const prevState = localStorage.getItem("search query");
     if (!prevState) {
       localStorage.setItem("search query", JSON.stringify(action.payload));

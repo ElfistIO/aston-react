@@ -68,6 +68,15 @@
       top: 26%;
       color: black;
     }
+    &:first-child {
+      border: 2px solid #343242 !important;
+      background: white !important;
+      top: 12%;
+      color: #4ca3e2;
+      & i {
+        transform:translateY(3px) scale(1.5);
+      }
+    }
   }
 }
 .flip__card {

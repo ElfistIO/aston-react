@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
-import M from "materialize-css";
-
 interface Props {
   list: Array<string>;
   color?: string;
@@ -9,7 +7,6 @@ interface Props {
 }
 
 export const Dropdown = (props: Props) => {
-  M.AutoInit();
   const [dropText, setDropText] = useState<string>(props.list[0]);
 
   function toggleDropdown(listItem: string) {

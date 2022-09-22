@@ -4,10 +4,12 @@ import { WishButton } from "../UI/wishButton/wishButton";
 import { useAuth } from "../../services/AuthContext/AuthContext";
 import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../services/firestore";
+import { TelegramButton } from "../UI/telegramButton/telegramButton";
+import { useTelegram } from "../../services/TelegramContext/TelegramContext";
 
+import PropTypes from "prop-types";
 import * as Scry from "scryfall-sdk";
 import s from "./card.module.scss";
-import PropTypes from "prop-types";
 
 interface Props {
   card: Scry.Card | undefined;
@@ -20,6 +22,7 @@ export const Card = (props: Props) => {
   const [wishIcon, setwishIcon] = useState("favorite_border");
   const [isCollection, setIsCollection] = useState<boolean>(false);
   const [collectionIcon, setCollectionIcon] = useState("playlist_add");
+  const isTelegram = useTelegram();
   const refCard = useRef<HTMLDivElement | null>(null);
 
   function handleTransform(e: React.SyntheticEvent) {
@@ -116,6 +119,12 @@ export const Card = (props: Props) => {
               />
               {user && (
                 <div className={s.card__wish}>
+                  {isTelegram.isTelegramShareEnabled && (
+                    <TelegramButton
+                      cardUri={card.scryfall_uri!}
+                      cardName={card.name}
+                    />
+                  )}
                   <WishButton icon={wishIcon} action={addToWishList} />
                   <WishButton icon={collectionIcon} action={addToCollection} />
                 </div>
@@ -137,6 +146,12 @@ export const Card = (props: Props) => {
                 </button>
                 {user && (
                   <div className={s.card__wish}>
+                    {isTelegram && (
+                      <TelegramButton
+                        cardUri={card?.related_uris.edhrec!}
+                        cardName={card?.name!}
+                      />
+                    )}
                     <WishButton icon={wishIcon} action={addToWishList} />
                     <WishButton
                       icon={collectionIcon}
@@ -159,6 +174,12 @@ export const Card = (props: Props) => {
                 </button>
                 {user && (
                   <div className={s.card__wish}>
+                    {isTelegram && (
+                      <TelegramButton
+                        cardUri={card?.related_uris.edhrec!}
+                        cardName={card?.name!}
+                      />
+                    )}
                     <WishButton icon={wishIcon} action={addToWishList} />
                     <WishButton
                       icon={collectionIcon}

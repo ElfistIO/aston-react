@@ -29,7 +29,6 @@ export const magicApi = createApi({
         if (response.next_page) {
           return {
             data: response.data,
-            // .slice(0, 75)
             next_page: response.next_page,
           };
         } else

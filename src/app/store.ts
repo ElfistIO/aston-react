@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { saveHistory } from "./middleware/logger";
 import { magicApi } from "./slices/apiSlice";
+
 import collection from "./slices/collection";
 import searchReducer from "./slices/searchSlice";
 import setsReducer from "./slices/setsSlice";

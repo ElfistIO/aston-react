@@ -11,7 +11,7 @@ import s from "./cardPage.module.scss";
 import M from "materialize-css";
 
 export const CardPage = () => {
-  useEffect(() => M.AutoInit());
+  useEffect(() => M.AutoInit(), []);
   const [card, setCard] = useState<Scry.Card>();
   const [rulings, setRulings] = useState<Scry.Ruling[]>();
   const [searchParams] = useSearchParams();
